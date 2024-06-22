@@ -1,0 +1,162 @@
+html{
+    height:100%;
+}
+body{
+    height:100%;
+    background:#000;
+    color:#fff;
+}
+#root{
+    margin:1rem;
+    border:1px solid #fff;
+    border-radius:1rem;
+    padding:1rem;
+}
+h1, h2{
+    margin:0;
+}
+h1{
+    text-align: center;
+}
+button:focus{
+    outline:none;
+    background:#888;
+}
+#drop-zone{
+    border:1px solid #fff;
+    display:flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    height:8rem;
+    gap:.5rem;
+}
+#drop-zone label, button{
+    border:1px solid #fff;
+    background:#3a3a3a;
+    border-radius:3px;
+    display:inline-block;
+    padding:.3rem 1rem;
+    color:#fff;
+}
+button{
+    border-radius:.25rem;
+}
+
+#message-dialog{
+    background:#000;
+    border:1px solid #fff;
+}
+#message-dialog .content{
+    width:30rem;
+    min-height:3rem;
+
+    color:#fff;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+::backdrop{
+    background:rgba(255,255,255,.4);
+    backdrop-filter:blur(3px);
+}
+
+#image-editor{
+    width:85vw;
+    height:90vh;
+    background:#fff;
+    border:3px solid #000;
+    padding:.3rem 1rem;
+}
+#image-editor .content{
+    display:flex;
+    flex-direction: column;
+    height:100%;
+}
+#image-editor h2{
+    text-align:center;
+    font-size:1.25rem;
+}
+#image-editor canvas{
+    flex:1;
+}
+#image-editor .toolbar{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    gap:1rem;
+    padding-bottom:.3rem;
+}
+#image-editor .toolbar div{
+    padding: .1rem .5rem;
+    border:1px solid #000;
+    display:flex;
+    flex-direction: row;
+    gap:.5rem;
+}
+#image-editor button.current{
+    box-shadow: inset 0px 0px 2px #0095DA;
+    text-shadow: 1px 1px 1px #0095DA;
+    background:#fff;
+    color:#000;
+    border:1px solid #000;
+}
+footer.buttons{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-top:.25rem;
+}
+#image-file{
+    opacity:0;
+    width:1rem;
+}
+footer.buttons label[for="image-file"]{
+    border:1px solid #000;
+    color:#000;
+    background:#fff;
+    padding:.3rem .5rem;
+    border-radius:.25rem;
+    font-size:.85rem;
+}
+#images{
+    padding:1rem;
+    display:flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap:1rem;
+}
+#images div{
+    position:relative;
+    border:1px solid #fff;
+    padding:.5rem;
+}
+#images div a{
+    border:0;
+}
+#images img{
+    width:5rem;
+    height:5rem;
+    object-fit:contain;
+    object-position: center;
+}
+#images button{
+    position:absolute;
+    right:.25rem;
+    top:.25rem;
+    width:1.25rem;
+    height:1.25rem;
+    padding:0;
+    background:url(x.svg) no-repeat center / contain;
+    border-radius:100%;
+}
+#edited-preview{
+    text-align:center;
+}
+#edited-preview .content{
+    max-width:90vw;
+    max-height:90vh;
+    overflow:auto;
+}

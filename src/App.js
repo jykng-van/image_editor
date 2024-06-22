@@ -165,8 +165,8 @@ function App() {
           <h2>Image Editor</h2>
           <div className="toolbar">
             <div className="actions">
-              <button data-mode="move" className={classnames({view:true, current:editorMode==='move'})} onClick={modeSelect}>Move</button>
-              <button data-mode="crop" className={classnames({crop:true, current:editorMode==='crop'})} onClick={modeSelect}>Crop</button>
+              <button data-mode="move" className={classnames({move:true, current:editorMode==='move'})} onClick={modeSelect} title="Move"></button>
+              <button data-mode="crop" className={classnames({crop:true, current:editorMode==='crop'})} onClick={modeSelect} title="Crop"></button>
             </div>
             <div className="zoom">
               <button className="zoom-in" title="Zoom in" onClick={zoom_in}>+</button>

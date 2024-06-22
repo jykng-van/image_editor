@@ -5,6 +5,7 @@ body{
     height:100%;
     background:#000;
     color:#fff;
+    overscroll-behavior: none;
 }
 #root{
     margin:1rem;
@@ -86,22 +87,28 @@ button{
     display:flex;
     flex-direction: row;
     justify-content: center;
-    gap:1rem;
+    gap:.5rem;
     padding-bottom:.3rem;
 }
 #image-editor .toolbar div{
-    padding: .1rem .5rem;
+    padding: .1rem .25rem;
     border:1px solid #000;
     display:flex;
     flex-direction: row;
-    gap:.5rem;
+    gap:.25rem;
+}
+#image-editor .toolbar .move, #image-editor .toolbar .crop{
+    width:2rem;
+    border:1px solid #888;
+}
+#image-editor .toolbar .move{
+    background:no-repeat center / contain url(hand-move-tool-svgrepo-com.svg) #fff;
+}
+#image-editor .toolbar .crop{
+    background:no-repeat center / contain url(crop-tool-svgrepo-com.svg) #fff;
 }
 #image-editor button.current{
-    box-shadow: inset 0px 0px 2px #0095DA;
-    text-shadow: 1px 1px 1px #0095DA;
-    background:#fff;
-    color:#000;
-    border:1px solid #000;
+    box-shadow: inset 0px 0px 3px 2px #0095DA;
 }
 footer.buttons{
     display:flex;

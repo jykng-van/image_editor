@@ -245,6 +245,7 @@ export default class ImageEditor{
         this.draw_cropper();
     }
     mouse_down(e){
+        console.log('mouse_down', this.mode);
         this.mouse_engaged  = true;
         if (e.touches){ //touch
             let canvasbox = this.canvas.getBoundingClientRect();
@@ -262,7 +263,9 @@ export default class ImageEditor{
         }else if (this.mode==='crop'){
             this.crop.start_x = this.cropbox.x;
             this.crop.start_y = this.cropbox.y;
-            if (this.crop_state==='default'){
+            if (e.touches){
+                this.get_crop_state(this.start_x, this.start_y);
+            }else if (!e.touches && this.crop_state==='default'){
                 this.current_image.start_x = this.current_image.x;
                 this.current_image.start_y = this.current_image.y;
             }
@@ -389,45 +392,48 @@ export default class ImageEditor{
                 this.draw_image();
                 this.draw_cropper();
             }
-        }else{
-            let cropbox = this.cropbox;
-            let rightedge = cropbox.x + cropbox.width;
-            let bottomedge = cropbox.y + cropbox.height;
-            if (this.mode==='crop'){
-                if (current_x >= cropbox.x-this.handle_radius && current_x <= cropbox.x+this.handle_radius &&
-                current_y >= cropbox.y-this.handle_radius && current_y <= cropbox.y+this.handle_radius){ //upper left
-                    this.crop_state = 'nw-resize';
-                }else if (current_x >= rightedge-this.handle_radius && current_x <= rightedge+this.handle_radius &&
-                current_y >= cropbox.y-this.handle_radius && current_y <= cropbox.y+this.handle_radius){ //upper right
-                    this.crop_state = 'ne-resize';
-                }else if (current_x >= cropbox.x-this.handle_radius && current_x <= cropbox.x+this.handle_radius &&
-                current_y >= bottomedge-this.handle_radius && current_y <= bottomedge+this.handle_radius){ //lower left
-                    this.crop_state = 'sw-resize';
-                }else if (current_x >= rightedge-this.handle_radius && current_x <= rightedge+this.handle_radius &&
-                current_y >= bottomedge-this.handle_radius && current_y <= bottomedge+this.handle_radius){ //lower right
-                    this.crop_state = 'se-resize';
-                }else if (current_x >= cropbox.x-this.handle_radius && current_x <= cropbox.x+this.handle_radius &&
-                current_y > cropbox.y+this.handle_radius && current_y < bottomedge-this.handle_radius){ //left edge
-                    this.crop_state = 'w-resize';
-                }else if (current_x >= rightedge-this.handle_radius && current_x <= rightedge+this.handle_radius &&
-                current_y > cropbox.y+this.handle_radius && current_y < bottomedge-this.handle_radius){ //right edge
-                    this.crop_state = 'e-resize';
-                }else if (current_y >= cropbox.y-this.handle_radius && current_y <= cropbox.y+this.handle_radius &&
-                current_x > cropbox.x+this.handle_radius && current_x < rightedge-this.handle_radius){ //top edge
-                    this.crop_state = 'n-resize';
-                }else if (current_y >= bottomedge-this.handle_radius && current_y <= bottomedge+this.handle_radius &&
-                current_x > cropbox.x+this.handle_radius && current_x < rightedge-this.handle_radius){ //top edge
-                    this.crop_state = 's-resize';
-                }else if (current_x > cropbox.x+this.handle_radius && current_x < rightedge-this.handle_radius &&
-                current_y > cropbox.y+this.handle_radius && current_y < bottomedge-this.handle_radius){ //inside
-                    this.crop_state = 'move';
-                } else{ //outside
-                    this.crop_state = 'default';
-                }
-                this.canvas.style.cursor = this.crop_state;
-
-            }
+        }else if (!e.touches && this.mode==='crop'){ //for mouse
+            this.get_crop_state(current_x, current_y);
         }
+    }
+    get_crop_state(current_x, current_y){
+
+        let cropbox = this.cropbox;
+        let rightedge = cropbox.x + cropbox.width;
+        let bottomedge = cropbox.y + cropbox.height;
+
+        if (current_x >= cropbox.x-this.handle_radius && current_x <= cropbox.x+this.handle_radius &&
+        current_y >= cropbox.y-this.handle_radius && current_y <= cropbox.y+this.handle_radius){ //upper left
+            this.crop_state = 'nw-resize';
+        }else if (current_x >= rightedge-this.handle_radius && current_x <= rightedge+this.handle_radius &&
+        current_y >= cropbox.y-this.handle_radius && current_y <= cropbox.y+this.handle_radius){ //upper right
+            this.crop_state = 'ne-resize';
+        }else if (current_x >= cropbox.x-this.handle_radius && current_x <= cropbox.x+this.handle_radius &&
+        current_y >= bottomedge-this.handle_radius && current_y <= bottomedge+this.handle_radius){ //lower left
+            this.crop_state = 'sw-resize';
+        }else if (current_x >= rightedge-this.handle_radius && current_x <= rightedge+this.handle_radius &&
+        current_y >= bottomedge-this.handle_radius && current_y <= bottomedge+this.handle_radius){ //lower right
+            this.crop_state = 'se-resize';
+        }else if (current_x >= cropbox.x-this.handle_radius && current_x <= cropbox.x+this.handle_radius &&
+        current_y > cropbox.y+this.handle_radius && current_y < bottomedge-this.handle_radius){ //left edge
+            this.crop_state = 'w-resize';
+        }else if (current_x >= rightedge-this.handle_radius && current_x <= rightedge+this.handle_radius &&
+        current_y > cropbox.y+this.handle_radius && current_y < bottomedge-this.handle_radius){ //right edge
+            this.crop_state = 'e-resize';
+        }else if (current_y >= cropbox.y-this.handle_radius && current_y <= cropbox.y+this.handle_radius &&
+        current_x > cropbox.x+this.handle_radius && current_x < rightedge-this.handle_radius){ //top edge
+            this.crop_state = 'n-resize';
+        }else if (current_y >= bottomedge-this.handle_radius && current_y <= bottomedge+this.handle_radius &&
+        current_x > cropbox.x+this.handle_radius && current_x < rightedge-this.handle_radius){ //top edge
+            this.crop_state = 's-resize';
+        }else if (current_x > cropbox.x+this.handle_radius && current_x < rightedge-this.handle_radius &&
+        current_y > cropbox.y+this.handle_radius && current_y < bottomedge-this.handle_radius){ //inside
+            this.crop_state = 'move';
+        } else{ //outside
+            this.crop_state = 'default';
+        }
+        console.log('crop_state', this.crop_state);
+        this.canvas.style.cursor = this.crop_state;
     }
     check_x_bounds(x_pos){
         let current = this.current_image;

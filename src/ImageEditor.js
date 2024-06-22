@@ -246,8 +246,15 @@ export default class ImageEditor{
     }
     mouse_down(e){
         this.mouse_engaged  = true;
-        this.start_x = e.offsetX;
-        this.start_y = e.offsetY;
+        if (e.touches){ //touch
+            let canvasbox = this.canvas.getBoundingClientRect();
+            this.start_x = e.touches[0].clientX - canvasbox.left;
+            this.start_y = e.touches[0].clientY - canvasbox.top;
+        }else{ //mouse
+            this.start_x = e.offsetX;
+            this.start_y = e.offsetY;
+        }
+
         if (this.mode==='move'){
             console.log(this.current);
             this.current_image.start_x = this.current_image.x;
@@ -266,8 +273,16 @@ export default class ImageEditor{
         this.mouse_engaged = false;
     }
     mouse_move(e){
-        let current_x = e.offsetX;
-        let current_y = e.offsetY;
+        let current_x, current_y;
+        if (e.touches){ //touch
+            let canvasbox = this.canvas.getBoundingClientRect();
+            current_x = e.touches[0].clientX - canvasbox.left;
+            current_y = e.touches[0].clientY - canvasbox.top;
+        }else{ //mouse
+            current_x = e.offsetX;
+            current_y = e.offsetY;
+        }
+
         let change_x = current_x - this.start_x;
         let change_y = current_y - this.start_y;
         let current = this.current_image;

@@ -52,9 +52,9 @@ export default class ImageEditor{
         this.rotating = false;
 
         //mouse actions on canvas
-        this.canvas.addEventListener('mousedown touchstart',this.mouse_down.bind(this));
-        window.addEventListener('mouseup touchend',this.mouse_up.bind(this));
-        this.canvas.addEventListener('mousemove touchmove',this.mouse_move.bind(this));
+        ['mousedown','touchstart'].forEach(e=>this.canvas.addEventListener(e,this.mouse_down.bind(this)));
+        ['mouseup','touchend'].forEach(e=>window.addEventListener(e,this.mouse_up.bind(this)));
+        ['mousemove','touchmove'].forEach(e=>this.canvas.addEventListener(e,this.mouse_move.bind(this)));
 
         //zoom buttons
         this.zoom = 1.0;

@@ -30,7 +30,7 @@ export default class ImageEditor{
     //cropping stuff
     crop = {x:null, y:null, width:null, height:null, start_x:null, start_y:null}; //info on the crop
     crop_state; //the which cropping editing method to be used
-    handle_radius = 4; //radius of the crop handles
+    handle_radius = 15; //radius of the crop handles
     current_image = {
         x:null, y:null,
         width:null, height:null,

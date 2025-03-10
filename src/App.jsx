@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import ImageEditor from './ImageEditor.js';
-import ModalMessage from './ModalMessage.js';
+import ModalMessage from './ModalMessage.jsx';
 import classnames from 'classnames';
 
 function App() {
